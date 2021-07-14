@@ -12,6 +12,12 @@ class Api::V1::UsersController < ApplicationController
         render json: user
     end
 
+    def update
+        user = User.find(params[:id])
+        user.update(user_params)
+        render json: user
+    end
+
     def login
         user = User.find_by(username: params[:username])
         if user && user.authenticate(params[:password])
@@ -25,7 +31,7 @@ class Api::V1::UsersController < ApplicationController
     private
 
     def user_params
-        params.permit(:username, :password, :bio, :image)
+        params.permit(:username, :password, :bio, :image, :posts, :comments)
     end
 
 
